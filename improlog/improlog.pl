@@ -149,7 +149,7 @@ seQuedoEnBanda(Persona):-
 
 puedeTocar(Grupo):-
     grupo(Grupo, bigBand),
-    tieneBuenaBase(Grupo),
+    tieneUnaBuenaBase(Grupo),
     personasQueTocanInstrumentosDeViento(Grupo, 5).
 
 personasQueTocanInstrumentosDeViento(Grupo, Cantidad):-
@@ -175,5 +175,5 @@ cumpleRequisitosGrupo(Grupo, NivelDado):-
 
 puedeTocar(Grupo):-
     grupo(Grupo, ensamble(_)),
-    tieneBuenaBase(Grupo),
+    tieneUnaBuenaBase(Grupo),
     alguienTocaInstrumentoDeViento(Grupo).
