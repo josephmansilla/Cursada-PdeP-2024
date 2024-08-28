@@ -185,4 +185,5 @@ cumpleRequisitosGrupo(Grupo, NivelDado):-
 puedeTocar(Grupo):-
     grupo(Grupo, ensamble(_)),
     tieneUnaBuenaBase(Grupo),
-    alguienTocaInstrumentoDeViento(Grupo).
+    integrante(Grupo, _, Instrumento),
+    instrumento(Instrumento, melodico(_)).
