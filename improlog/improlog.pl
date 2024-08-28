@@ -87,6 +87,7 @@ grupo(vientosDelEste, bigBand).
 grupo(sophieTrio, contrabajo).
 grupo(sophieTrio, guitarra).
 grupo(sophieTrio, violin).
+grupo(jazzmin, contrabajo).
 grupo(jazzmin, bateria).
 grupo(jazzmin, bajo).
 grupo(jazzmin, trompeta).
@@ -107,6 +108,12 @@ puedeEntrarABigBand(Instrumento):- instrumento(Instrumento, melodico(viento)).
 puedeEntrarABigBand(bateria).
 puedeEntrarABigBand(bajo).
 puedeEntrarABigBand(piano).
+
+leSirve(formacion(InstrumentosBuscado), Instrumento):-
+    member(Instrumento, InstrumentosBuscado).
+leSirve(bigBand, bateria).
+leSirve(bigBand, bajo).
+leSirve(bigBand, piano).
 
 nadieTocaInstrumento(Grupo, Instrumento):-
     grupo(Grupo,_),
@@ -154,11 +161,11 @@ puedeTocar(Grupo):-
 
 personasQueTocanInstrumentosDeViento(Grupo, Cantidad):-
     grupo(Grupo,_),
-    findall(InstrumentoViento, alguienTocaInstrumentoDeViento(Grupo), InstrumentosViento),
-    length(InstrumentosViento, Cantidad).
+    findall(Integrante, alguienTocaInstrumentoDeViento(Grupo), Integrantes),
+    length(Integrantes, Cantidad).
 
 alguienTocaInstrumentoDeViento(Grupo):-
-    integrante(Grupo, _, InstrumentoViento),
+    integrante(Grupo, Integrante, InstrumentoViento),
     instrumento(InstrumentoViento, melodico(viento)).
 
 puedeTocar(Grupo):-
@@ -168,6 +175,8 @@ puedeTocar(Grupo):-
 %% PUNTO 8 %%
 
 grupo(estudio1, ensamble(3)).
+
+leSirve(ensamble(_),_).
 
 cumpleRequisitosGrupo(Grupo, NivelDado):-
     grupo(Grupo, ensamble(NivelMinimo)),
