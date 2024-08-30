@@ -123,4 +123,3 @@ montaniaRusaConMasVueltas(Atraccion, Vueltas):-
 %% PUNTO 5
 % visitante(Nombre,grupo, Edad, Plata, Hambre, Aburrimiento).
 
-opcionesDeEntretenimiento(Visitante):-
