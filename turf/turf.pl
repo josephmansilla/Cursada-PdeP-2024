@@ -35,4 +35,61 @@ gano(matBoy, granPremioCriadores).
 caballoPrefiereVariosJockey(Caballo):-
     caballo(Caballo),
     preferencias(Caballo, UnJockey),
-    
+    preferencias(Caballo, OtroJockey),
+    UnJockey \= OtroJockey.
+
+%% PUNTO 3 %% 
+
+aborrece(NombreCaballo, GrupoJockeys):-
+    caballo(NombreCaballo),
+    representa(GrupoJockeys, _),
+    forall(representa(GrupoJockeys, Jockey), not((preferencias(NombreCaballo, Jockey), representa(GrupoJockeys, Jockey)))).
+
+%% PUNTO 4 %%
+
+premioImportante(granPremioNacional).
+premioImportante(granPremioRepublica).
+
+jockeyPiolin(NombreJockey):-
+    jockey(NombreJockey,_,_),
+    forall(ganaronAlgoImportante(NombreCaballo), preferencias(NombreCaballo, NombreJockey)).
+
+ganaronAlgoImportante(NombreCaballo):- gano(NombreCaballo, Premio), premioImportante(Premio).
+
+%% PUNTO 5 %%
+
+salioPrimero((NombreCaballo), [NombreCaballo | _]).
+salioSegundo(NombreCaballo, [_ | [NombreCaballo | _]]).
+ganoApuesta(ganador(NombreCaballo), Resultado):- salioPrimero(NombreCaballo, Resultado).
+ganoApuesta(segundo(NombreCaballo), Resultado):- salioSegundo(NombreCaballo, Resultado).
+ganoApuesta(exacto(UnCaballo, OtroCaballo), Resultado):- ganadoresExactos(UnCaballo, OtroCaballo).
+ganoApuesta(imperfecta(UnCaballo, OtroCaballo), Resultado):- ganadoresExactos(UnCaballo, OtroCaballo).
+ganoApuesta(imperfecta(UnCaballo, OtroCaballo), Resultado):- ganadoresExactos(OtroCaballo, UnCaballo).
+
+ganadoresExactos(UnCaballo, OtroCaballo):- salioPrimero(UnCaballo, Resultado), salioSegundo(OtroCaballo, Resultado).
+
+%% PUNTO 6 %% 
+
+colorReal(botafogo, tordo).
+colorReal(oldMan, alazan).
+colorReal(energica, ratonero).
+colorReal(matBoy, palomino).
+colorReal(yatasto, pinto).
+
+color(pinto, blanco).
+color(pinto, marron).
+color(palomino, marron).
+color(palomino, blanco).
+color(ratonero, gris).
+color(ratonero, negro).
+color(oldMan, marron).
+color(tordo, negro).
+
+puedeComprar(ColorPreferencia, CaballosDisponibles):-
+    findall(CaballoCumplidor, (color(ColorPosible, ColorPreferencia), colorReal(CaballoCumplidor, ColorPosible)), Caballos),
+    combinar(Caballos, CaballosDisponibles),
+    CaballosDisponibles \= [].
+
+combinar([],[]).
+combinar([Caballo | CaballosPosibles], [Caballo | Caballos]):- combinar(CaballosPosibles, Caballos).
+combinar([_ | CaballosPosibles], Caballos):- combinar(CaballosPosibles, Caballos).
