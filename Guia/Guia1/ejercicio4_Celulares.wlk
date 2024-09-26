@@ -69,7 +69,7 @@ object catalina {
     const catalina = new Persona(celular = iPhone14, compania = movistar)
 }
 // estaria buena una implementacion donde catalina o juliana hace algo en particular que no hace otra persona
-// se verá en la proxima unidad
+// se verá en la proxima unidad supongo
 
 // PARTE B
 
