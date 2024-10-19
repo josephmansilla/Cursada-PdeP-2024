@@ -1,15 +1,16 @@
 //PUNTO 1
 class Comensal{
     var property posicion
-    // property para intercambiar las posiciones
+    // property para intercambiar las posiciones y entonces no lo puedo hacer constante 
     var property elementos
     var property criterio
-    // property por si lo queremos cambiar
+    // property por si lo queremos cambiar y entonces no lo puedo hacer constante
 
     method pedirElemento(otraPersona, elemento){otraPersona.pasarElemento(self, elemento)}
 
     method pasarElemento(persona,elemento){
-        if(elementos.isEmpty()){throw new NoTieneElementosCercaException()}
+        if(elementos.isEmpty()){throw new ElementNotFoundException()}
+        // no quiero causar un efecto si la colección está 
 
         criterio.pasarElemento(self, persona, elemento)
         
@@ -23,10 +24,11 @@ class Comensal{
     // PUNTO 2 Y 3
 
     var property preferencia
-    var property estomago = []
+    // var porque puede cambiar y lo modelo justo para eso
+    var property estomago = [] // comienza con el estomago vacio!!
 
     method comer(bandeja){
-        preferencia.puedeComer(bandeja)    
+        if(!preferencia.puedeComer(bandeja)){throw new NoVaAComerException()}
         estomago.add(bandeja)
     }
 
@@ -41,8 +43,7 @@ class Comensal{
     method tieneTantosElementosCerca(cantidad) = cantidad > elementos.size()  
 }
 
-class NoTieneElementosCercaException inherits Exception{}
-
+class NoVaAComerException inherits Exception{}
 
 // MODELAMOS LOS CRITERIOS CON COMPOSICION PORQUE ES POSIBLE QUE CAMBIEN
 
@@ -76,6 +77,7 @@ class Inquieto{
 
     }
 }
+// es lo que menos me gusta de la implementación, debe haber una funciona para intercambiar las colecciones
 
 class Generoso{
     method pasarElemento(persona, otraPersona, elemento){

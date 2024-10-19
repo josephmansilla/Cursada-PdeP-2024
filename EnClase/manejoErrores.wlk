@@ -1,4 +1,3 @@
-import ejercicio5_mudanzas.*
 class Impresora{
     const cabezal
     const cabezalAux
@@ -38,7 +37,7 @@ class Cartucho{
     var carga
 
     method extraer(cantidad){
-        if(carga < cantidad){throw new SinCargaException{carga = carga}}
+        if(carga < cantidad){throw new SinCargaException(carga = carga)}
     }
 }
 
