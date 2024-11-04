@@ -14,7 +14,7 @@ class Empleado{
         salud -= danioBase
     }
 
-    method puedeUsarHabilidad(habilidad) = self.estaIncapacitado() && self.tieneHabilidad(habilidad)
+    method puedeUsarHabilidad(habilidad) = !self.estaIncapacitado() && self.tieneHabilidad(habilidad)
     method tieneHabilidad(habilidadDada) = habilidades.any({habilidad => habilidadDada == habilidad})
 
     method ascenderRol(){if(rol.estrellas() >= 3){rol = "espia"}}
@@ -58,11 +58,16 @@ class Equipo{
     method todosRecibenDanio(valor){
         equipo.forEach{agente => agente.recibirDanio(valor)}
     }
-    method removerIncapacitados(){
+    method removerIncapacitados(){ // NO ES NECESARIO PORQUE NO PUEDE USAR LA HABILIDAD SI ESTÁ INCAPACITADO
         equipo.map{agente => agente.estaIncapacitado()}
     }
     method aplicarRecompensa(){
         equipo.map{agente => agente.rol().recompensaMision(agente, self)}
+    }
+
+    method resolverObjetivo(objetivo){
+        equipo.any{agente => agente.tieneHabilidad(objetivo.habilidadRequerida())}
+        self.todosRecibenDanio(objetivo.danioBase())
     }
 }
 
@@ -80,12 +85,8 @@ class Mision{
     method hacerMision(equipo){
         self.definirHabilidades()
         if(!equipo.puedeHacerMision(self)){throw new NoPuedeHacerMisionException()}
+        habilidadesRequeridas.forEach{objetivo => equipo.resolverObjetivo(objetivo)}
 
-        
-        if(equipo.size() > 1){
-            danioBase = danioBase / 3
-        }
-        equipo.todosRecibenDanio(danioBase)
         equipo.removerIncapacitados()
         equipo.aplicarRecompensa()
     }
@@ -94,11 +95,12 @@ class Mision{
 class NoPuedeHacerMisionException inherits Exception{}
 
 class Objetivo{
+    const daniobase
     const habilidadRequerida
 }
 
 
-class ObjetivosPeligrosos{
+class ObjetivoPeligroso inherits Objetivo{
     const tamanioMinimo = 3
 
     method hacerMision(equipo){    

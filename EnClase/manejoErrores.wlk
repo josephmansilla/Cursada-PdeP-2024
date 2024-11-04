@@ -16,7 +16,7 @@ class Impresora{
             self.trazar(documento.recorrido())
         } catch error: SinCargaException {
             cabezalAux.eyectar(documento.tinta())
-        } then always{
+        } then always{ // finally en otros lenguajes
             ocupada = false
         }
         

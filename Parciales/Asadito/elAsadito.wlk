@@ -95,7 +95,7 @@ class NoTengoEseCosoException inherits Exception{}
 // PUNTO 2
 
 class Bandeja{
-    const nombre
+    const property nombre
     const property esCarne
     const property calorias
 }
