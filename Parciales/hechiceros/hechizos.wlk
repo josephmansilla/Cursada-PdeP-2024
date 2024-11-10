@@ -57,4 +57,8 @@ class HechizoCurativo inherits Hechizo(modificador = 1){
 class HechizoAtaque inherits Hechizo(modificador = -1){
     override method impactoSobreReceptor(cantidadDanio, lanzador, objetivo) = cantidadDanio.min()
     override method receptor(lanzador, objetivo) = objetivo
+    override method convenienciaBase(lanzador, objetivo) {
+        const terminariaElDuelo = self.impactoEnVida(lanzador, objetivo) >= objetivo.vidaActual()
+        return super(lanzador, objetivo) * if(terminariaElDuelo) {2} else {1}
+    }
 }
