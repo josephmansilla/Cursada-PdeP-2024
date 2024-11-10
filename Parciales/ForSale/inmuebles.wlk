@@ -5,9 +5,9 @@ import empleados.*
 // %%%%%%%%%%%%%%%%%%%
 
 class Inmueble{
-    const property tamanio
-    const property cantAmbientes
-    const property zona
+    var property tamanio
+    var property cantAmbientes
+    var property zona
     method valorInmueble() = zona.valor()
 
     method cambiarDimensiones(nuevoTamanio, nuevaCantAmbientes, nuevaZona){
@@ -48,7 +48,7 @@ object galpon{
 }
 
 object aLaCalle{
-    var montoFijo
+    var montoFijo = 1000
     method cambiarMonto(nuevoMonto){ montoFijo = nuevoMonto }
     method valor(valorDado) = montoFijo + valorDado
 }
@@ -116,7 +116,6 @@ object disponible inherits EstadoOperacion{
     override method reservarPara(operacion, cliente){
         operacion.cambiarEstado(new Reservada(clienteQueReservo = cliente))
     }
-    
 }
 object cerrada inherits EstadoOperacion{
     override method reservarPara(operacion, cliente){ self.error("Ya se cerró esta operación") }
