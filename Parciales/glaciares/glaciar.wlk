@@ -104,4 +104,10 @@ class Embarcacion{
         masaAgua.cambiarPesoTempanos(-1)
         masaAgua.seAireanTempanos()
     }
+
+    method navegar(masaAgua){
+        if(self.esPosibleNavegar(masaAgua)){
+            self.efectoNavegar(masaAgua)
+        } else{ self.error("No es posible navegarlo") }
+    }
 }
