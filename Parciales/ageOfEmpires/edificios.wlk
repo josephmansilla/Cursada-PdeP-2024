@@ -1,4 +1,4 @@
-import wollok.*
+import jugadores.*
 import recursos.*
 
 class Edificio{

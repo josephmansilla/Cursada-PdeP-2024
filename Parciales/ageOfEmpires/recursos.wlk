@@ -1,4 +1,4 @@
-import wollok.*
+import jugadores.*
 
 class Zona{
     const property costo = 50
