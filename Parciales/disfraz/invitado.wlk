@@ -24,7 +24,7 @@ class Fiesta{
     method intercambiarDisfraz(unInvitado, otroInvitado){
         if( not self.estanEnMimsaJoda(unInvitado, otroInvitado) ) self.error("No estan en la misma fiesta")
         if( not self.algunoDisconforme(unInvitado, otroInvitado)) self.error("No están los dos disconformes")
-        if( not self.intercambioSsatisfactorio(unInvitado, otroInvitado)) self.error("No quedan satisfechos al cambiar")
+        if( not self.intercambioSatisfactorio(unInvitado, otroInvitado)) self.error("No quedan satisfechos al cambiar")
         unInvitado.intercambiarDisfraz(otroInvitado)
     }
 }
