@@ -1,0 +1,76 @@
+import TP_Objetos.*
+
+describe "Gandalf" {
+    test "Poder de Gandalf con toda la vida y todas sus armas" { // Considero que inicialmente tiene toda la vida y todas sus armas
+        assert.equals(2800, unGandalf.poder())
+    }
+
+    test "Poder de Gandalf sin armas y con 80 de vida" {
+        unGandalf.vida(80)
+        unGandalf.armas([])
+
+        const resultado = unGandalf.poder()
+
+        assert.equals(1200, resultado) 
+    }
+
+    test "Poder de Gandalf con 5 de vida y su baculo" {
+        unGandalf.vida(5)
+        unGandalf.armas([baculo])
+
+        const resultado = unGandalf.poder()
+
+        assert.equals(2300, resultado) 
+    }
+
+    test "Poder de Gandalf con 30 de vida, su baculo y su espada pero version enana" {
+        unGandalf.vida(30)
+        espada.origen("enana")
+        
+        const resultado = unGandalf.poder()
+
+        assert.equals(1650, resultado)
+    }
+
+    test "Gandalf full vida y con sus armas, puede atravesar Lebennin" {
+        const resultado = unGandalf.puedePasar(lebennin)
+        assert.equals(true, resultado)
+    }
+
+    test "Gandalf sin armas y con 11 de vida puede atravesar Lebennin" {
+        unGandalf.vida(11)
+        unGandalf.armas([])
+
+        const resultado = unGandalf.puedePasar(lebennin)
+        assert.equals(false, resultado) 
+    }
+
+    test "Gandalf sin armas y con 11 de vida puede atravesar Minas Tirith" {
+        unGandalf.vida(11)
+        unGandalf.armas([])
+
+        const resultado = unGandalf.puedePasar(minasTirith)
+        assert.equals(false, resultado) 
+    }   
+
+    test "Gandalf full vida y con sus armas, puede atravesar el camino compuesto por Lebennin y Minas Tirith" {
+      unGandalf.vida(100)
+      unGandalf.armas([baculo, espada])
+      unGandalf.recorreCamino(lebennin, minasTirith)
+
+      const resultado = unGandalf.vida() 
+      assert.equals(90, resultado) 
+    }
+}
+
+describe "Tom" {
+  test "Tom puede atravesar Lebennin" {
+    const resultado = tomBombadil.puedePasar(lebennin)
+    assert.equals(true, resultado)
+  }
+
+  test "Tom atraviesa el camino que pasa por Gondor antes mencionado" {
+    const resultado = tomBombadil.recorreCamino(lebennin, minasTirith)
+    assert.equals(true, resultado)
+  }
+}

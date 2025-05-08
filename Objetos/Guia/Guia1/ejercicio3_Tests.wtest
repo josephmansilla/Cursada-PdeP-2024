@@ -1,0 +1,11 @@
+import ejercicio3_SueldoDePepe.*
+
+describe "Pruebas Empleado"{
+    test "El sueldo de Pepe tiene que ser de 1650 si tiene un bono por porcentaje y ningun bono por presentismo"{
+        assert.equals(1650, pepe.sueldo())
+    }
+    test "El sueldo de joseph tiene que ser de 1080 si tiene un bono por costo fijo y no cumplir con el bono por presentismo"{
+        const joseph = new Empleado(categoria = cadete, bonoPresentismo = bonoPorNoFaltar, bonoResultado = bonoMontoFijo, cantidadDeFaltas = 4)
+        assert.equals(1080, joseph.sueldo())
+    }
+}
